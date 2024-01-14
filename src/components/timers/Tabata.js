@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { useLocation } from "react-router-dom";
+import { useLoadIfAdd } from "../../utils/useLoadIfAdd";
 import { TimerContext } from "../../utils/timerProvider";
 import Button from "../generic/Button";
 import SetTimes from "../generic/SetTimes";
@@ -19,8 +19,7 @@ const Tabata = ({ initialWork, initialRest, initialNumRounds, timerId, timerDesc
     const [editor, setEditor] = useState(false);
 
     // get the location to check if the user is on the add timer page
-    const location = useLocation();
-    const loadIfAdd = location.pathname.includes("add");
+    const loadIfAdd = useLoadIfAdd();
 
     const {
         timerQueue,

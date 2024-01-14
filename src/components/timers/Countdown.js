@@ -1,9 +1,9 @@
 import Button from "../generic/Button.js"
 import SetTimes from "../generic/SetTimes.js";
 import { useRunTimers } from "../../utils/useRunTimers.js";
+import { useLoadIfAdd } from "../../utils/useLoadIfAdd.js";
 import { useContext, useState, useEffect } from "react";
 import { TimerContext } from "../../utils/timerProvider.js";
-import { useLocation } from "react-router-dom";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 // import { TiDelete } from "react-icons/ti";
 
@@ -12,9 +12,9 @@ const Countdown = ({ initialMinutes, initialSeconds, timerId, timerDesc }) => {
     const [cdSec, setCdSec] = useState(0);
     const [cdDesc, setCdDesc] = useState("");
     const [editor, setEditor] = useState(false);
+
     // get the location and check if the user is on the add timer page
-    const location = useLocation();
-    const loadIfAdd = location.pathname.includes("add");
+    const loadIfAdd = useLoadIfAdd();
 
     const {
         timerQueue,
@@ -101,9 +101,12 @@ const Countdown = ({ initialMinutes, initialSeconds, timerId, timerDesc }) => {
             border: loadIfAdd ? 'none' : timerRunning ? '2px solid green' : isFinished ? '2px solid red' : '2px solid black'
         }}>
             <div className="clockface">
-                <span style={{ color: timerRunning ? 'green' : 'red' }}>
+                <span style={{ display: loadIfAdd ? 'none' : '', color: timerRunning ? 'green' : 'red' }}>
                     {selectedMinute < 10 ? `0${selectedMinute}` : selectedMinute}
                     :{selectedSecond < 10 ? `0${selectedSecond}` : selectedSecond}
+                </span>
+                <span style={{ display: loadIfAdd ? '' : 'none', color: timerRunning ? 'green' : 'red' }}>
+                    {cdMin < 10 ? `0${cdMin}` : cdMin}:{cdSec < 10 ? `0${cdSec}` : cdSec}
                 </span>
             </div>
             <div id="text-input" style={{ display: loadIfAdd ? '' : editor ? '' : 'none' }}>
@@ -123,7 +126,7 @@ const Countdown = ({ initialMinutes, initialSeconds, timerId, timerDesc }) => {
                 />
                 <div style={{ display: loadIfAdd ? 'none' : '' }}>
                     <Button id={"setter"} value={"Set Time"} onClick={() => {
-                        updateInitialTimes(timerId, cdMin, cdSec);
+                        updateInitialTimes(timerId, cdMin, cdSec, cdDesc);
                         setEditor(!editor);
                     }} />
                 </div>
@@ -140,7 +143,7 @@ const Countdown = ({ initialMinutes, initialSeconds, timerId, timerDesc }) => {
                             Countdown,
                             'Countdown',
                             { initialMinutes: cdMin, initialSeconds: cdSec },
-                            timerDesc || cdDesc
+                            cdDesc || timerDesc
                         )
                     }
                     } />

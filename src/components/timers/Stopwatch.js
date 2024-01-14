@@ -1,9 +1,9 @@
 import Button from "../generic/Button";
 import SetTimes from "../generic/SetTimes";
 import { useRunTimers } from "../../utils/useRunTimers.js";
+import { useLoadIfAdd } from "../../utils/useLoadIfAdd.js";
 import { useContext, useEffect, useState } from "react";
 import { TimerContext } from "../../utils/timerProvider";
-import { useLocation } from "react-router-dom";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 // import { TiDelete } from "react-icons/ti";
 
@@ -13,8 +13,7 @@ const Stopwatch = ({ initialMinutes, initialSeconds, timerId, timerDesc }) => {
     const [swDesc, setSwDesc] = useState("");
     const [editor, setEditor] = useState(false);
     // get the location to check if the user is on the add timer page
-    const location = useLocation();
-    const loadIfAdd = location.pathname.includes("add");
+    const loadIfAdd = useLoadIfAdd();
 
     const { addTimer,
         activeTimerIndex,

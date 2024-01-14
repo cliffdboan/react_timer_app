@@ -16,8 +16,10 @@ export const TimerProvider = ({ children }) => {
     const [totalTime, setTotalTime] = useState(0);
     const [finishCurrentTimer, setFinishCurrentTimer] = useState(false);
 
+    // TODO: fix removal of single timer. currently not changing timerId
+
     // update initial times when 'set time' button is clicked in editor
-    const updateInitialTimes = (timerId, newMinutes, newSeconds, newRounds) => {
+    const updateInitialTimes = (timerId, newMinutes, newSeconds, newDesc, newRounds) => {
         const timerToUpdate = timerQueue[timerId];
         let Comp;
         const timerType = timerToUpdate.title;
@@ -37,7 +39,7 @@ export const TimerProvider = ({ children }) => {
                 initialSeconds={newSeconds}
                 initialNumRounds={newRounds}
                 timerId={timerId}
-                timerDesc={timerToUpdate.timerDesc}
+                timerDesc={newDesc}
             />
         );
 

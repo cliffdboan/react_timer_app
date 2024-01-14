@@ -14,17 +14,14 @@ export function useRunTimers({ timerType, initialMinutes, initialSeconds, initia
     const [currentRound, setCurrentRound] = useState(initialRound || 1);
     const [isFinished, setIsFinished] = useState(false);
 
-    // TODO: improve time keeping
     // TODO: move time into its own react component
-    
-
     const {
         timerQueue,
         nextTimer,
         updateTotalTime,
     } = useContext(TimerContext);
 
-    // functions to set the timer to running or not
+    // functions to set the timer to running (true) or not
     const startTimer = () => {
         if (!timerRunning) setTimerRunning(true);
     };
@@ -82,7 +79,7 @@ export function useRunTimers({ timerType, initialMinutes, initialSeconds, initia
         setIsFinished(true);
     };
 
-    // timer logic for both countdown and countup timers
+    // timer logic for both 'countdown' and 'countup' timers
     useEffect(() => {
         let intervalId;
 
@@ -95,6 +92,8 @@ export function useRunTimers({ timerType, initialMinutes, initialSeconds, initia
                     setSelectedSecond(59);
                 } else {
                     clearInterval(intervalId);
+                    setSelectedMinute(0);
+                    setSelectedSecond(0);
                     setTimerRunning(false);
                     setIsFinished(true);
                 }

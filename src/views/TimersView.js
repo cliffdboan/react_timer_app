@@ -13,6 +13,8 @@ const TimersContainer = styled.div`
   padding: 20px;
 `;
 
+// TODO: add progress bar for both current timer and total time
+
 const TimersView = () => {
     const {
         timerQueue,
