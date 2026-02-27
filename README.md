@@ -51,7 +51,7 @@ Alternates between work and rest periods for a specified number of sets.
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/react_timer_app.git
+git clone https://github.com/cliffdboan/react_timer_app.git
 
 # Navigate to project directory
 cd react_timer_app
